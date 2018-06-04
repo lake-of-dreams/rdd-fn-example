@@ -1,0 +1,24 @@
+box:
+  id: ubuntu
+
+# Build definition
+build:
+  docker: true
+  # The steps that will be executed on build
+  steps:
+
+    # install docker, fn and start fn server
+    - script:
+        name: fn server
+        code: |
+          sudo apt-get -y update && sudo apt-get -y install curl
+          curl -vfsSL get.docker.com | sh
+          curl -vLSs https://raw.githubusercontent.com/fnproject/cli/master/install | sh
+          nohup fn start > /tmp/fn.log 2>&1 &
+    # test fn
+    - script:
+        name: fn client
+        code: |
+          fn init --runtime go hello
+          cd hello
+          fn run
