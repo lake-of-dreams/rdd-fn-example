@@ -22,3 +22,7 @@ build:
           fn init --runtime go hello
           cd hello
           fn run
+    - script:
+        name: test docker cli
+        code: |
+          docker run hello-world
