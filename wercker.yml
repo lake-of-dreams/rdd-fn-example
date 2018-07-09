@@ -81,7 +81,7 @@ test-fn2:
         code: |
           fn list routes myapp
     - script:
-        name: Invoke the function and verify it returns the expected result
+        name: Invoke the function and verify it returns the expected results
         code: |
             if curlOutput=`curl -s functions:8080/r/myapp/test-fn2`; then 
                 export expected='{"message":"Hello World"}'
