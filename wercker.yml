@@ -18,9 +18,12 @@ build:
           echo "mongo port is $MONGO_PORT_27017_TCP_PORT"
           ping -c 4 $MONGO_PORT_27017_TCP_ADDR
           apt-get -y install telnet
-          telnet $MONGO_PORT_27017_TCP_ADDR $MONGO_PORT_27017_TCP_PORT
-          while ! nc -q 1 $MONGO_PORT_27017_TCP_ADDR $MONGO_PORT_27017_TCP_PORT 
-          </dev/null; do sleep 3; done
+          apt-get -y install gnupg
+          apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75D9DCB49F368818C72E52529D4
+          echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-4.0.list
+          apt-get update
+          apt-get install -y mongodb
+          mongo --host $MONGO_PORT_27017_TCP_ADDR --port $MONGO_PORT_27017_TCP_PORT
           
 test-fn2:
   # Simple Fn use case in which we start the fn server (using the local docker rather than docker in docker) and build, deploy and call a function
