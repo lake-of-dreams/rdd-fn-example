@@ -25,7 +25,7 @@ build:
           apt-get update
           set -e
           apt-get install -y mongodb
-          mongo --host $MONGO_PORT_27017_TCP_ADDR --port $MONGO_PORT_27017_TCP_PORT
+          mongo --host $MONGO_PORT_27017_TCP_ADDR --port $MONGO_PORT_27017_TCP_PORT --eval "printjson(db.serverStatus())"
           
 test-fn2:
   # Simple Fn use case in which we start the fn server (using the local docker rather than docker in docker) and build, deploy and call a function
