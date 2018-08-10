@@ -1,7 +1,7 @@
 box:
   id: ubuntu
 services:
-   - mariadb  
+   - mongo  
 
 # Build definition
 build:
@@ -11,7 +11,9 @@ build:
     - script:
         name: check service
         code: |
-          while ! nc -q 1 $MARIADB_PORT_3306_TCP_ADDR $MARIADB_PORT_3306_TCP_PORT 
+          apt-get update
+          apt-get -y install netcat
+          while ! nc -q 1 $MONGO_PORT_27017_TCP_ADDR $MARIADB_PORT_27017_TCP_PORT 
           </dev/null; do sleep 3; done
           
 test-fn2:
