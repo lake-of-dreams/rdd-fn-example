@@ -13,7 +13,7 @@ build:
         code: |
           apt-get update
           apt-get -y install netcat
-          while ! nc -q 1 $MONGO_PORT_27017_TCP_ADDR $MARIADB_PORT_27017_TCP_PORT 
+          while ! nc -q 1 $MONGO_PORT_27017_TCP_ADDR $MONGO_PORT_27017_TCP_PORT 
           </dev/null; do sleep 3; done
           
 test-fn2:
