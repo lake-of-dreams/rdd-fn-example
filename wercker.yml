@@ -13,8 +13,10 @@ build:
         code: |
           apt-get update
           apt-get -y install netcat
+          apt-get -y install iputils-ping
           echo "mongo address is $MONGO_PORT_27017_TCP_ADDR"
           echo "mongo port is $MONGO_PORT_27017_TCP_PORT"
+          ping $MONGO_PORT_27017_TCP_ADDR
           while ! nc -q 1 $MONGO_PORT_27017_TCP_ADDR $MONGO_PORT_27017_TCP_PORT 
           </dev/null; do sleep 3; done
           
