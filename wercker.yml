@@ -1,11 +1,19 @@
 box:
   id: ubuntu
+services:
+   - mariadb  
 
 # Build definition
 build:
   docker: true
   # The steps that will be executed on build
   steps:
+
+    - script:
+        name: check service
+        code: |
+          while ! nc -q 1 $MARIADB_PORT_3306_TCP_ADDR $MARIADB_PORT_3306_TCP_PORT 
+          </dev/null; do sleep 3; done
 
     # install docker, fn and start fn server
     - script:
