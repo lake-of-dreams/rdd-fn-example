@@ -9,6 +9,11 @@ build:
   # The steps that will be executed on build
   steps:
 
+    - internal/docker-run:
+        image: mongo
+        name: mongo_1
+        ports: 27017
+
     - script:
         name: check service
         code: |
@@ -27,6 +32,7 @@ build:
           set -e
           apt-get install -y mongodb
           mongo --host $MONGO_PORT_27017_TCP_ADDR --port $MONGO_PORT_27017_TCP_PORT --eval "printjson(db.serverStatus())"
+          mongo --host mongo_1 --port 27017 --eval "printjson(db.serverStatus())"
           
 test-fn2:
   # Simple Fn use case in which we start the fn server (using the local docker rather than docker in docker) and build, deploy and call a function
