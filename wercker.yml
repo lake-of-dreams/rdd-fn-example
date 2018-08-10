@@ -16,7 +16,9 @@ build:
           apt-get -y install iputils-ping
           echo "mongo address is $MONGO_PORT_27017_TCP_ADDR"
           echo "mongo port is $MONGO_PORT_27017_TCP_PORT"
-          ping $MONGO_PORT_27017_TCP_ADDR
+          ping -c 4 $MONGO_PORT_27017_TCP_ADDR
+          apt-get -y install telnet
+          telnet $MONGO_PORT_27017_TCP_ADDR $MONGO_PORT_27017_TCP_PORT
           while ! nc -q 1 $MONGO_PORT_27017_TCP_ADDR $MONGO_PORT_27017_TCP_PORT 
           </dev/null; do sleep 3; done
           
