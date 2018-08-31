@@ -1,7 +1,7 @@
 box:
   id: ubuntu
-services:
-   - mongo  
+#services:
+ #  - mongo  
 
 # Build definition
 build:
@@ -42,6 +42,7 @@ integration-tests:
         name: Start the docker daemon
         code: |
             dockerd &
+            docker ps -a
 
 test-fn2:
   # Simple Fn use case in which we start the fn server (using the local docker rather than docker in docker) and build, deploy and call a function
