@@ -42,6 +42,7 @@ integration-tests:
         name: Start the docker daemon
         code: |
             dockerd &
+            export DOCKER_HOST=unix:////var/run/docker.sock
             docker ps -a
 
 test-fn2:
