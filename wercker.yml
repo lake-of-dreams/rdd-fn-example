@@ -34,6 +34,15 @@ build:
           mongo --host $MONGO_PORT_27017_TCP_ADDR --port $MONGO_PORT_27017_TCP_PORT --eval "printjson(db.serverStatus())"
           mongo --host mongo_1 --port 27017 --eval "printjson(db.serverStatus())"
           
+integration-tests:
+  box: docker:dind
+  docker: true
+  steps:        
+     - script:
+        name: Start the docker daemon
+        code: |
+            dockerd &
+
 test-fn2:
   # Simple Fn use case in which we start the fn server (using the local docker rather than docker in docker) and build, deploy and call a function
   box: alpine:edge
@@ -102,7 +111,10 @@ test-fn2:
             else 
                 echo "Test failed: function did not respond"
                 exit 1
-            fi   
+            fi  
+
+
+
   after-steps:
     - script:
         name: Clean up
