@@ -17,7 +17,7 @@ build:
     - script:
         name: check service
         code: |
-          apt-get update
+          yum update
           apt-get -y install netcat
           apt-get -y install iputils-ping
           echo "mongo address is $MONGO_PORT_27017_TCP_ADDR"
